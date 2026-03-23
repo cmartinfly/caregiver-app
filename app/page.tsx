@@ -138,7 +138,10 @@ export default function Home() {
     return diffMs / (1000 * 60 * 60)
   }
 
-  const getCompletedHoursWorked = (clockIn: string, clockOut: string | null) => {
+  const getCompletedHoursWorked = (
+    clockIn: string,
+    clockOut: string | null
+  ) => {
     if (!clockOut) return 0
     return getHoursWorked(clockIn, clockOut)
   }
@@ -249,12 +252,6 @@ export default function Home() {
     setSchedule(updatedSchedule)
     localStorage.setItem("schedule", JSON.stringify(updatedSchedule))
     setMessage("Schedule deleted")
-  }
-
-  const clearLogs = () => {
-    setLogs([])
-    localStorage.setItem("logs", JSON.stringify([]))
-    setMessage("All logs cleared")
   }
 
   const exportLogsToCSV = () => {
@@ -433,7 +430,8 @@ export default function Home() {
           </p>
           <h1 className="text-3xl font-bold sm:text-4xl">Caregiver Clock</h1>
           <p className="mt-3 max-w-2xl text-sm text-gray-300 sm:text-base">
-            Clock caregivers in and out, track active shifts, and manage weekly schedules in one simple view.
+            Clock caregivers in and out, track active shifts, and manage weekly
+            schedules in one simple view.
           </p>
           <div className="mt-4 inline-flex rounded-full border border-green-800 bg-green-950/40 px-4 py-2 text-sm text-green-300">
             Today: {today}
@@ -506,7 +504,9 @@ export default function Home() {
                 >
                   <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                      <p className="text-lg font-semibold">{item.caregiverName}</p>
+                      <p className="text-lg font-semibold">
+                        {item.caregiverName}
+                      </p>
                       <p
                         className={`text-sm ${
                           item.overtime ? "text-red-300" : "text-blue-300"
@@ -527,31 +527,45 @@ export default function Home() {
                   <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-7">
                     <div className="rounded-lg border border-gray-800 bg-black/50 p-3">
                       <p className="text-xs text-gray-400">Mon</p>
-                      <p className="mt-1 font-semibold">{formatHours(item.daily.Mon)}</p>
+                      <p className="mt-1 font-semibold">
+                        {formatHours(item.daily.Mon)}
+                      </p>
                     </div>
                     <div className="rounded-lg border border-gray-800 bg-black/50 p-3">
                       <p className="text-xs text-gray-400">Tue</p>
-                      <p className="mt-1 font-semibold">{formatHours(item.daily.Tue)}</p>
+                      <p className="mt-1 font-semibold">
+                        {formatHours(item.daily.Tue)}
+                      </p>
                     </div>
                     <div className="rounded-lg border border-gray-800 bg-black/50 p-3">
                       <p className="text-xs text-gray-400">Wed</p>
-                      <p className="mt-1 font-semibold">{formatHours(item.daily.Wed)}</p>
+                      <p className="mt-1 font-semibold">
+                        {formatHours(item.daily.Wed)}
+                      </p>
                     </div>
                     <div className="rounded-lg border border-gray-800 bg-black/50 p-3">
                       <p className="text-xs text-gray-400">Thu</p>
-                      <p className="mt-1 font-semibold">{formatHours(item.daily.Thu)}</p>
+                      <p className="mt-1 font-semibold">
+                        {formatHours(item.daily.Thu)}
+                      </p>
                     </div>
                     <div className="rounded-lg border border-gray-800 bg-black/50 p-3">
                       <p className="text-xs text-gray-400">Fri</p>
-                      <p className="mt-1 font-semibold">{formatHours(item.daily.Fri)}</p>
+                      <p className="mt-1 font-semibold">
+                        {formatHours(item.daily.Fri)}
+                      </p>
                     </div>
                     <div className="rounded-lg border border-gray-800 bg-black/50 p-3">
                       <p className="text-xs text-gray-400">Sat</p>
-                      <p className="mt-1 font-semibold">{formatHours(item.daily.Sat)}</p>
+                      <p className="mt-1 font-semibold">
+                        {formatHours(item.daily.Sat)}
+                      </p>
                     </div>
                     <div className="rounded-lg border border-gray-800 bg-black/50 p-3">
                       <p className="text-xs text-gray-400">Sun</p>
-                      <p className="mt-1 font-semibold">{formatHours(item.daily.Sun)}</p>
+                      <p className="mt-1 font-semibold">
+                        {formatHours(item.daily.Sun)}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -582,7 +596,8 @@ export default function Home() {
                     Clocked in: {log.clock_in}
                   </p>
                   <p className="mt-1 text-sm text-green-300">
-                    Live Hours: {formatHours(getHoursWorked(log.clock_in, log.clock_out))}
+                    Live Hours:{" "}
+                    {formatHours(getHoursWorked(log.clock_in, log.clock_out))}
                   </p>
                   <p className="mt-2 text-sm font-medium text-green-400">
                     Active Shift
@@ -603,12 +618,6 @@ export default function Home() {
                 className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-500"
               >
                 Export CSV
-              </button>
-              <button
-                onClick={clearLogs}
-                className="rounded-xl bg-gray-700 px-4 py-2 text-sm font-medium text-white transition hover:bg-gray-600"
-              >
-                Clear Logs
               </button>
             </div>
           </div>
@@ -632,8 +641,12 @@ export default function Home() {
                   <p className="mt-1 text-sm text-blue-300">
                     Hours Worked:{" "}
                     {log.clock_out
-                      ? formatHours(getCompletedHoursWorked(log.clock_in, log.clock_out))
-                      : formatHours(getHoursWorked(log.clock_in, log.clock_out))}{" "}
+                      ? formatHours(
+                          getCompletedHoursWorked(log.clock_in, log.clock_out)
+                        )
+                      : formatHours(
+                          getHoursWorked(log.clock_in, log.clock_out)
+                        )}{" "}
                     hrs
                   </p>
                 </div>
@@ -746,4 +759,3 @@ export default function Home() {
     </div>
   )
 }
-
